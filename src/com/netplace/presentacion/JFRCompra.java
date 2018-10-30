@@ -133,7 +133,8 @@ public class JFRCompra extends javax.swing.JInternalFrame {
         int i = this.jTable1.getRowCount();
         this.txtCountEntry.setText("" + i);
     }
-    public void ajust(){
+
+    public void ajust() {
         TableColumnModel column = this.jTable1.getColumnModel();
         column.getColumn(0).setPreferredWidth(10);
         column.getColumn(1).setPreferredWidth(150);
@@ -346,7 +347,20 @@ public class JFRCompra extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione fecha");
+            try {
+                Connection cn = new Conexion().createConection();
+                Map p = new HashMap();
+                JasperReport report;
+                JasperPrint print;
+                report = JasperCompileManager.compileReport(new File("").getAbsolutePath() + "/src/com/netplace/recursos/Entry.jrxml");
+                print = JasperFillManager.fillReport(report, p, cn);
+                JasperViewer view = new JasperViewer(print, false);
+                view.setTitle("COMPRAS");
+                view.setVisible(true);
+                cn.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

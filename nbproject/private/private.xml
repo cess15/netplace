@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/presentacion/JFRVentas.java</file>
-            <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/recursos/Venta.jrxml</file>
+            <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/presentacion/Login.java</file>
             <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/presentacion/JFRCompra.java</file>
-            <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/presentacion/JFRAgregarCompra.java</file>
+            <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/recursos/Entry.jrxml</file>
+            <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/recursos/Compra.jrxml</file>
             <file>file:/C:/Users/Cess/Documents/NetBeansProjects/Cyber/src/com/netplace/dao/Conexion.java</file>
         </group>
     </open-files>

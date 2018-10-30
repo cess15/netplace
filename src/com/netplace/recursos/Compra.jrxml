@@ -46,7 +46,7 @@
 	<columnHeader>
 		<band height="21">
 			<line>
-				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="e7500591-20c7-46d6-be62-e8964060477d"/>
+				<reportElement x="-20" y="20" width="625" height="1" forecolor="#666666" uuid="e7500591-20c7-46d6-be62-e8964060477d"/>
 			</line>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="be86be8d-9aea-451c-839f-064854c7f353"/>
@@ -88,7 +88,7 @@
 	<detail>
 		<band height="20">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="65c9f244-9536-41d4-b4e1-7014e3893f52"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="605" height="1" uuid="65c9f244-9536-41d4-b4e1-7014e3893f52"/>
 			</line>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="0" width="185" height="20" uuid="b2932d4a-767d-4c3c-a497-5ab31b8b62e7"/>
