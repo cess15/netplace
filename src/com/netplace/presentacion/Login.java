@@ -51,7 +51,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Contraseña");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/login.png"))); // NOI18N
+        jButton1.setText("LogIn");
         jButton1.setToolTipText("LogIn");
         jButton1.setMaximumSize(new java.awt.Dimension(120, 617));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -61,6 +61,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         jButton2.setText("Exit");
+        jButton2.setToolTipText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
