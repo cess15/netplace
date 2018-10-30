@@ -349,7 +349,20 @@ public class JFRVentas extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una fecha");
+            try {
+                Connection cn = new Conexion().createConection();
+                Map p = new HashMap();
+                JasperReport report;
+                JasperPrint print;
+                report = JasperCompileManager.compileReport(new File("").getAbsolutePath() + "/src/com/netplace/recursos/Sales.jrxml");
+                print = JasperFillManager.fillReport(report, p, cn);
+                JasperViewer view = new JasperViewer(print, false);
+                view.setTitle("VENTAS");
+                view.setVisible(true);
+                cn.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
