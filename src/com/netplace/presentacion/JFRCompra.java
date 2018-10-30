@@ -5,20 +5,30 @@
  */
 package com.netplace.presentacion;
 
+import com.netplace.dao.Conexion;
 import com.netplace.entidad.Entry;
 import com.netplace.entidad.Product;
 import com.netplace.entidad.User;
 import com.netplace.negocio.EntryLN;
 import static com.netplace.presentacion.Main.desktop;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -190,6 +200,11 @@ public class JFRCompra extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Imprimir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Total");
 
@@ -310,6 +325,30 @@ public class JFRCompra extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_jDateChooser1PropertyChange
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!((JTextField) this.jDateChooser1.getDateEditor().getUiComponent()).getText().isEmpty()) {
+            Date date = this.jDateChooser1.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Connection cn = new Conexion().createConection();
+                Map p = new HashMap();
+                JasperReport report;
+                JasperPrint print;
+                p.put("fechas", sdf.format(date));
+                report = JasperCompileManager.compileReport(new File("").getAbsolutePath() + "/src/com/netplace/recursos/Compra.jrxml");
+                print = JasperFillManager.fillReport(report, p, cn);
+                JasperViewer view = new JasperViewer(print, false);
+                view.setTitle("COMPRAS");
+                view.setVisible(true);
+                cn.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione fecha");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

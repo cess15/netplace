@@ -89,35 +89,35 @@
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="4fea8bf6-7430-413d-81f4-23c75f135cda"/>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="133" height="20" uuid="351560fd-4788-4431-8942-4613e3c32018"/>
+				<reportElement x="0" y="0" width="150" height="20" uuid="351560fd-4788-4431-8942-4613e3c32018"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="133" y="0" width="111" height="20" uuid="e4dde48d-f77b-4c69-939b-cc94769de157"/>
+				<reportElement x="150" y="0" width="111" height="20" uuid="e4dde48d-f77b-4c69-939b-cc94769de157"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="357" y="0" width="111" height="20" uuid="c1d9feec-11ce-488f-b2a9-4608e84f8463"/>
+				<reportElement x="375" y="0" width="140" height="20" uuid="c1d9feec-11ce-488f-b2a9-4608e84f8463"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{date_time}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="468" y="0" width="87" height="20" uuid="b0ba98b3-4d7d-4f5a-a8d7-67dec2a87470"/>
+				<reportElement x="515" y="0" width="40" height="20" uuid="b0ba98b3-4d7d-4f5a-a8d7-67dec2a87470"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="244" y="0" width="111" height="20" uuid="ce5e18b9-fbfb-4941-afc1-cf3eca3388be"/>
+				<reportElement x="264" y="0" width="111" height="20" uuid="ce5e18b9-fbfb-4941-afc1-cf3eca3388be"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
@@ -144,19 +144,31 @@
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="45" width="115" height="20" uuid="edae081a-75af-4060-ba05-a31939d0075a"/>
-				<text><![CDATA[VENTAS REALIZADAS]]></text>
+				<reportElement x="0" y="45" width="161" height="20" uuid="edae081a-75af-4060-ba05-a31939d0075a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[VENTAS REALIZADAS:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="115" y="45" width="100" height="20" uuid="10207c10-d963-42a0-a178-0b1c6ef61fc0"/>
+				<reportElement x="161" y="45" width="100" height="20" uuid="10207c10-d963-42a0-a178-0b1c6ef61fc0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="382" y="45" width="100" height="20" uuid="ce738d0f-3bb9-4e5d-b721-6091a05d14ee"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="482" y="45" width="73" height="20" uuid="af090e3e-7502-4e89-96ff-3954969604f9"/>
+				<reportElement x="515" y="45" width="40" height="20" uuid="af090e3e-7502-4e89-96ff-3954969604f9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{subtotal_1}]]></textFieldExpression>
 			</textField>
 		</band>
