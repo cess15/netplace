@@ -31,6 +31,28 @@ public class JFREditarProducto extends javax.swing.JInternalFrame {
         productLN = new ProductLN();
     }
 
+    public void updateProduct() {
+        try {
+            if (!this.txtName.getText().isEmpty() && (!this.txtPrice.getText().isEmpty())) {
+                Product product = new Product();
+                product.setIdProduct(Integer.parseInt(this.txtId.getText()));
+                product.setName(this.txtName.getText());
+                DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+                dfs.setDecimalSeparator('.');
+                DecimalFormat df = new DecimalFormat("#.00", dfs);
+                String price = df.format(Double.parseDouble(this.txtPrice.getText()));
+                product.setSalePrice(Double.parseDouble(price));
+                product.setDescription(this.txtDescription.getText());
+                productLN.updateProduct(product);
+                preview();
+            } else {
+                JOptionPane.showMessageDialog(null, "Campos obligatorios (*)");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+
     public void preview() {
         this.dispose();
         JFRProductos productos = new JFRProductos();
@@ -62,28 +84,44 @@ public class JFREditarProducto extends javax.swing.JInternalFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setText("Producto");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel2.setText("Nombre del Producto");
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel3.setText("Precio");
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel4.setText("Descripcion");
 
+        txtName.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        txtPrice.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPriceKeyTyped(evt);
             }
         });
 
-        jButton1.setText("Guardar");
+        txtDescription.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescriptionKeyTyped(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/guardar-producto.png"))); // NOI18N
+        jButton1.setToolTipText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Regresar");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/cancelar.png"))); // NOI18N
+        jButton2.setToolTipText("Regresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -115,27 +153,30 @@ public class JFREditarProducto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createSequentialGroup()
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4))
-                            .addGap(40, 40, 40)
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDescription))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)))))
-                .addContainerGap(11, Short.MAX_VALUE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDescription)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel1))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,10 +198,10 @@ public class JFREditarProducto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -185,25 +226,7 @@ public class JFREditarProducto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            if (!this.txtName.getText().isEmpty() && (!this.txtPrice.getText().isEmpty())) {
-                Product product = new Product();
-                product.setIdProduct(Integer.parseInt(this.txtId.getText()));
-                product.setName(this.txtName.getText());
-                DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-                dfs.setDecimalSeparator('.');
-                DecimalFormat df = new DecimalFormat("#.00", dfs);
-                String price = df.format(Double.parseDouble(this.txtPrice.getText()));
-                product.setSalePrice(Double.parseDouble(price));
-                product.setDescription(this.txtDescription.getText());
-                productLN.updateProduct(product);
-                preview();
-            } else {
-                JOptionPane.showMessageDialog(null, "Campos obligatorios (*)");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
+        updateProduct();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -214,11 +237,22 @@ public class JFREditarProducto extends javax.swing.JInternalFrame {
         char c = evt.getKeyChar();
         if (((c < '0') || (c > '9'))
                 && (c != KeyEvent.VK_BACK_SPACE)
-                && (c != '.' || this.txtPrice.getText().contains("."))) {
+                && (c != '.' || this.txtPrice.getText().contains("."))
+                && (c != KeyEvent.VK_ENTER)) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
         }
+        if (c == KeyEvent.VK_ENTER) {
+            updateProduct();
+        }
     }//GEN-LAST:event_txtPriceKeyTyped
+
+    private void txtDescriptionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescriptionKeyTyped
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            updateProduct();
+        }
+    }//GEN-LAST:event_txtDescriptionKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

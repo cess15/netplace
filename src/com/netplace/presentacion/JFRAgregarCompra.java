@@ -53,6 +53,40 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
         OpenInternalFrame.charge(compra, desktop);
     }
 
+    public void newEntry() {
+        try {
+            if (!this.txtCantidad.getText().isEmpty()
+                    && (!this.txtPrice.getText().isEmpty())
+                    && (!this.jComboBox1.getSelectedItem().equals("-Seleccione-"))) {
+                Calendar calendar = Calendar.getInstance();
+                Entry entry = new Entry();
+                User user = new User();
+                user.setIdUser(Login.id);
+                entry.setUser(user);
+
+                Product product = new Product();
+                String comb[] = this.jComboBox1.getSelectedItem().toString().split("-");
+                product.setIdProduct(Integer.parseInt(comb[0]));
+                entry.setProduct(product);
+
+                entry.setQuantity(Integer.parseInt(this.txtCantidad.getText().toString()));
+                DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+                dfs.setDecimalSeparator('.');
+                DecimalFormat df = new DecimalFormat("#.00", dfs);
+                String price = df.format(Double.parseDouble(this.txtPrice.getText()));
+                entry.setPrice(Double.parseDouble(price));
+
+                entry.setDateTime(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)));
+                entryLN.createEntry(entry);
+                preview();
+            } else {
+                JOptionPane.showMessageDialog(null, "Campos obligatorios (*)");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: en la compra " + e.getMessage());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,34 +115,44 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setText("Compras");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel2.setText("Cantidad");
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel3.setText("Seleccione Producto");
 
+        jComboBox1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        txtCantidad.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel4.setText("Precio");
 
+        txtPrice.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPriceKeyTyped(evt);
             }
         });
 
-        jButton1.setText("Registrar");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/guardar-compra-venta.png"))); // NOI18N
+        jButton1.setToolTipText("Registrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Regresar");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/cancelar.png"))); // NOI18N
+        jButton2.setToolTipText("Regresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -141,44 +185,39 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jComboBox1, 0, 160, Short.MAX_VALUE)
+                        .addComponent(txtCantidad)
+                        .addComponent(txtPrice))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(17, Short.MAX_VALUE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, 160, Short.MAX_VALUE)
-                                    .addComponent(txtCantidad)
-                                    .addComponent(txtPrice))
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addContainerGap(16, Short.MAX_VALUE))
-                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel7)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(16, 16, 16))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(136, 136, 136))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1)
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,10 +233,10 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(0, 64, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,37 +257,7 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            if (!this.txtCantidad.getText().isEmpty()
-                    && (!this.txtPrice.getText().isEmpty())
-                    && (!this.jComboBox1.getSelectedItem().equals("-Seleccione-"))) {
-                Calendar calendar = Calendar.getInstance();
-                Entry entry = new Entry();
-                User user = new User();
-                user.setIdUser(Login.id);
-                entry.setUser(user);
-
-                Product product = new Product();
-                String comb[] = this.jComboBox1.getSelectedItem().toString().split("-");
-                product.setIdProduct(Integer.parseInt(comb[0]));
-                entry.setProduct(product);
-
-                entry.setQuantity(Integer.parseInt(this.txtCantidad.getText().toString()));
-                DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-                dfs.setDecimalSeparator('.');
-                DecimalFormat df = new DecimalFormat("#.00", dfs);
-                String price = df.format(Double.parseDouble(this.txtPrice.getText()));
-                entry.setPrice(Double.parseDouble(price));
-
-                entry.setDateTime(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)));
-                entryLN.createEntry(entry);
-                preview();
-            } else {
-                JOptionPane.showMessageDialog(null, "Campos obligatorios (*)");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: en la compra " + e.getMessage());
-        }
+        newEntry();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -257,7 +266,9 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
         char c = evt.getKeyChar();
-        if ((c < '0' || c > '9') && !(c == KeyEvent.VK_BACK_SPACE)) {
+        if ((c < '0' || c > '9')
+                && !(c == KeyEvent.VK_BACK_SPACE)
+                && !(c == KeyEvent.VK_ENTER)) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
         }
@@ -266,8 +277,9 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
     private void txtPriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyTyped
         char c = evt.getKeyChar();
         if (((c < '0') || (c > '9'))
-                && (c != KeyEvent.VK_BACK_SPACE)
-                && (c != '.' || this.txtPrice.getText().contains("."))) {
+                && !(c == KeyEvent.VK_BACK_SPACE)
+                && !(c == '.' || this.txtPrice.getText().contains(".")
+                && !(c == KeyEvent.VK_ENTER))) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
         }

@@ -48,6 +48,38 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
         }
     }
 
+    public void newSale() {
+        try {
+            if (!this.txtCant.getText().isEmpty() && (!this.jComboBox1.getSelectedItem().equals("-Seleccione-"))) {
+                Calendar calendar = Calendar.getInstance();
+                Sale sale = new Sale();
+                User user = new User();
+                user.setIdUser(Login.id);
+                sale.setUser(user);
+
+                Product product = new Product();
+                String comb[] = this.jComboBox1.getSelectedItem().toString().split("-");
+                product.setIdProduct(Integer.parseInt(comb[0]));
+
+                sale.setQuantity(Integer.parseInt(this.txtCant.getText().toString()));
+
+                product.setSalePrice(Double.parseDouble(this.txtPrice.getText()));
+                sale.setProduct(product);
+                sale.setDateTime(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)));
+
+                double subtotal = 0.0;
+                subtotal = Double.parseDouble(this.txtPrice.getText()) * Integer.parseInt(this.txtCant.getText());
+                sale.setSubtotal(subtotal);
+                saleLN.createEntry(sale);
+                preview();
+            } else {
+                JOptionPane.showMessageDialog(null, "Campos obligatorios (*)");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+
     public void preview() {
         this.dispose();
         JFRVentas venta = new JFRVentas();
@@ -82,8 +114,10 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setText("Ventas");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel2.setText("Seleccione Producto");
 
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -93,12 +127,13 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
         });
 
         txtPrice.setEditable(false);
-        txtPrice.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txtPrice.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         txtPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtPrice.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtPrice.setSelectedTextColor(new java.awt.Color(102, 102, 102));
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel3.setText("Cantidad");
 
         txtCant.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -107,14 +142,16 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Realizar Venta");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/guardar-compra-venta.png"))); // NOI18N
+        jButton1.setToolTipText("Registrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Regresar");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/cancelar.png"))); // NOI18N
+        jButton2.setToolTipText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -123,7 +160,7 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
 
         jTexDescription.setEditable(false);
         jTexDescription.setColumns(20);
-        jTexDescription.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
+        jTexDescription.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jTexDescription.setRows(5);
         jScrollPane1.setViewportView(jTexDescription);
 
@@ -148,21 +185,21 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(153, 153, 153)
-                                .addComponent(jLabel1))
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jComboBox1, 0, 130, Short.MAX_VALUE)
-                                    .addComponent(txtCant))))
+                                    .addComponent(txtCant)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(53, 53, 53)))
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGap(5, 5, 5)
@@ -171,16 +208,15 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                                 .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane1))))
+                        .addGap(63, 63, 63)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -204,10 +240,10 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -232,35 +268,7 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            if (!this.txtCant.getText().isEmpty() && (!this.jComboBox1.getSelectedItem().equals("-Seleccione-"))) {
-                Calendar calendar = Calendar.getInstance();
-                Sale sale = new Sale();
-                User user = new User();
-                user.setIdUser(Login.id);
-                sale.setUser(user);
-
-                Product product = new Product();
-                String comb[] = this.jComboBox1.getSelectedItem().toString().split("-");
-                product.setIdProduct(Integer.parseInt(comb[0]));
-
-                sale.setQuantity(Integer.parseInt(this.txtCant.getText().toString()));
-
-                product.setSalePrice(Double.parseDouble(this.txtPrice.getText()));
-                sale.setProduct(product);
-                sale.setDateTime(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)));
-
-                double subtotal = 0.0;
-                subtotal = Double.parseDouble(this.txtPrice.getText()) * Integer.parseInt(this.txtCant.getText());
-                sale.setSubtotal(subtotal);
-                saleLN.createEntry(sale);
-                preview();
-            } else {
-                JOptionPane.showMessageDialog(null, "Campos obligatorios (*)");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
+        newSale();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -289,9 +297,14 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
 
     private void txtCantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyTyped
         char c = evt.getKeyChar();
-        if ((c < '0' || c > '9') && !(c == KeyEvent.VK_BACK_SPACE)) {
+        if ((c < '0' || c > '9')
+                && !(c == KeyEvent.VK_BACK_SPACE)
+                && !(c == KeyEvent.VK_ENTER)) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
+        }
+        if (c == KeyEvent.VK_ENTER) {
+            newSale();
         }
     }//GEN-LAST:event_txtCantKeyTyped
 

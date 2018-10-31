@@ -7,6 +7,7 @@ package com.netplace.presentacion;
 
 import com.netplace.negocio.UserLN;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,12 +19,12 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     UserLN userLN;
+
     public Main() {
-        initComponents();
+        initComponents();        
         this.setExtendedState(Main.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("PRINCIPAL");
-
     }
 
     /**
@@ -50,9 +51,20 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        desktop.setBackground(new java.awt.Color(0, 153, 153));
+
+        menuBar.setBackground(new java.awt.Color(255, 255, 255));
+        menuBar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        menuBar.setOpaque(false);
+
+        fileMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/gestion.png"))); // NOI18N
         fileMenu.setMnemonic('f');
         fileMenu.setText("Gestion");
+        fileMenu.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
+        openMenuItem.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        openMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/usuarios.png"))); // NOI18N
         openMenuItem.setMnemonic('o');
         openMenuItem.setText("Usuarios");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -62,6 +74,8 @@ public class Main extends javax.swing.JFrame {
         });
         fileMenu.add(openMenuItem);
 
+        saveMenuItem.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        saveMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/productos.png"))); // NOI18N
         saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Productos");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +85,8 @@ public class Main extends javax.swing.JFrame {
         });
         fileMenu.add(saveMenuItem);
 
+        jMenuItem1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/potencia.png"))); // NOI18N
         jMenuItem1.setText("Cerrar Sesion");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,6 +96,8 @@ public class Main extends javax.swing.JFrame {
         fileMenu.add(jMenuItem1);
 
         exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+        exitMenuItem.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        exitMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/exit.png"))); // NOI18N
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -91,9 +109,14 @@ public class Main extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
+        editMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        editMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/transaccion.png"))); // NOI18N
         editMenu.setMnemonic('e');
         editMenu.setText("Transacciones");
+        editMenu.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
+        cutMenuItem.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        cutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/compras.png"))); // NOI18N
         cutMenuItem.setMnemonic('t');
         cutMenuItem.setText("Compras");
         cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +126,8 @@ public class Main extends javax.swing.JFrame {
         });
         editMenu.add(cutMenuItem);
 
+        copyMenuItem.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        copyMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/ventas.png"))); // NOI18N
         copyMenuItem.setMnemonic('y');
         copyMenuItem.setText("Ventas");
         copyMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -114,11 +139,21 @@ public class Main extends javax.swing.JFrame {
 
         menuBar.add(editMenu);
 
+        helpMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        helpMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/ayuda.png"))); // NOI18N
         helpMenu.setMnemonic('h');
         helpMenu.setText("Ayuda");
+        helpMenu.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
+        aboutMenuItem.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/acerca-de.png"))); // NOI18N
         aboutMenuItem.setMnemonic('a');
         aboutMenuItem.setText("Acerca de");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
         helpMenu.add(aboutMenuItem);
 
         menuBar.add(helpMenu);
@@ -129,11 +164,11 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
         );
 
         pack();
@@ -171,6 +206,10 @@ public class Main extends javax.swing.JFrame {
         JFRVentas ventas = new JFRVentas();
         OpenInternalFrame.charge(ventas, desktop);
     }//GEN-LAST:event_copyMenuItemActionPerformed
+
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        JOptionPane.showMessageDialog(null, "Desarrollado por César Lata");
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

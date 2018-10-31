@@ -26,15 +26,17 @@ public class UserDAO {
     public String createUser(User user) throws SQLException {
         String create = "No se ha podido crear el usuario";
         try {
-            PreparedStatement ps = this.cn.createConection().prepareStatement("insert into users (username,password,name)values(?,?,?);");
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getName());
-            if (ps.executeUpdate() > 0) {
-                create = "El usuario " + user.getName() + " ha sido creado";
+            if (!isUser(user)) {
+                PreparedStatement ps = this.cn.createConection().prepareStatement("insert into users (username,password,name)values(?,?,?);");
+                ps.setString(1, user.getUsername());
+                ps.setString(2, user.getPassword());
+                ps.setString(3, user.getName());
+                if (ps.executeUpdate() > 0) {
+                    create = "El usuario " + user.getName() + " ha sido creado";
+                }
             }
         } catch (Exception e) {
-            create = "Error: " + e.getMessage();
+            create = "Usuario ya existe con las mismas credenciales";
         }
         this.cn.createConection().close();
         return create;
@@ -43,16 +45,18 @@ public class UserDAO {
     public String updateUser(User user) throws SQLException {
         String create = "No se ha podido actualizar el usuario";
         try {
-            PreparedStatement ps = this.cn.createConection().prepareStatement("update users set username=?, password=?, name=? where id_user=?");
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getName());
-            ps.setInt(4, user.getIdUser());
-            if (ps.executeUpdate() > 0) {
-                create = "El usuario " + user.getName() + " ha sido actualizado";
+            if (!isUser(user)) {
+                PreparedStatement ps = this.cn.createConection().prepareStatement("update users set username=?, password=?, name=? where id_user=?");
+                ps.setString(1, user.getUsername());
+                ps.setString(2, user.getPassword());
+                ps.setString(3, user.getName());
+                ps.setInt(4, user.getIdUser());
+                if (ps.executeUpdate() > 0) {
+                    create = "El usuario " + user.getName() + " ha sido actualizado";
+                }
             }
         } catch (Exception e) {
-            create = "Error: " + e.getMessage();
+            create = "Usuario ya existe con las mismas credenciales";
         }
         this.cn.createConection().close();
         return create;
@@ -125,5 +129,19 @@ public class UserDAO {
         } catch (Exception e) {
         }
         return rs;
+    }
+
+    public boolean isUser(User user) {
+        boolean isExist = false;
+        try {
+            PreparedStatement ps = this.cn.createConection().prepareStatement("select id_user,usernname from users");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                isExist = true;
+            }
+        } catch (Exception e) {
+
+        }
+        return isExist;
     }
 }

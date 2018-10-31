@@ -35,13 +35,14 @@ public class ProductDAO {
                 create = "El producto " + product.getName() + " ha sido registrado";
             }
         } catch (Exception e) {
-            create = "Error: " + e.getMessage();
+            create = "Ya existe un producto con las mismas credenciales";
         }
         this.cn.createConection().close();
         return create;
     }
+
     public String updateProduct(Product product) throws SQLException {
-        String create = "No se ha podido actualizar el usuario";
+        String create = "No se ha podido actualizar el producto";
         try {
             PreparedStatement ps = this.cn.createConection().prepareStatement("update products set name=?, sale_price=?, description=? where id_product=?");
             ps.setString(1, product.getName());
@@ -52,11 +53,14 @@ public class ProductDAO {
                 create = "El producto " + product.getName() + " ha sido actualizado";
             }
         } catch (Exception e) {
-            create = "Error: " + e.getMessage();
+            create = "Ya existe un producto con las mismas credenciales";
         }
-        this.cn.createConection().close();
+
+        this.cn.createConection()
+                .close();
         return create;
     }
+
     public ResultSet showProducts(int idProducto) throws SQLException {
         ResultSet rs = null;
         try {
@@ -69,6 +73,7 @@ public class ProductDAO {
         this.cn.createConection().close();
         return rs;
     }
+
     public String deleteProduct(int idProduct) throws SQLException {
         String create = "No se ha podido eliminar el producto";
         try {
@@ -83,6 +88,7 @@ public class ProductDAO {
         this.cn.createConection().close();
         return create;
     }
+
     public ResultSet getProducts() throws SQLException {
         ResultSet rs = null;
         try {

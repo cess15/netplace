@@ -7,6 +7,7 @@ package com.netplace.presentacion;
 
 import com.netplace.entidad.User;
 import com.netplace.negocio.UserLN;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,9 +21,32 @@ public class Login extends javax.swing.JFrame {
      */
     UserLN userLN;
     public static int id;
+
     public Login() {
         initComponents();
         userLN = new UserLN();
+
+    }
+
+    public void login() {
+        try {
+            User user = new User();
+            user.setUsername(this.txtUserName.getText());
+            user.setPassword(this.jPasswordField1.getText().toString());
+            if (userLN.access(user)) {
+                User userAuth = userLN.getUserByCredential(this.txtUserName.getText(), this.jPasswordField1.getText().toString());
+                id = userAuth.getIdUser();
+                Main main = new Main();
+                main.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Estas credenciales no son correctas", "Error", JOptionPane.ERROR_MESSAGE);
+                this.txtUserName.setText("");
+                this.jPasswordField1.setText("");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "" + e.getMessage());
+        }
     }
 
     /**
@@ -45,6 +69,11 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         jDesktopPane1.setBackground(new java.awt.Color(51, 153, 255));
         jDesktopPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -58,8 +87,18 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("Contraseña");
 
         txtUserName.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtUserName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUserNameKeyTyped(evt);
+            }
+        });
 
         jPasswordField1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyTyped(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/login.png"))); // NOI18N
         jButton1.setToolTipText("LogIn");
@@ -82,12 +121,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setBackground(new java.awt.Color(95, 197, 180));
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("BIENVENIDO A NETPLACE");
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
-        jLabel3.setOpaque(true);
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -102,25 +140,24 @@ public class Login extends javax.swing.JFrame {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1)
-                        .addGap(44, 44, 44)
-                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel2)
-                        .addGap(96, 96, 96)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jLabel1)
+                            .addGap(44, 44, 44)
+                            .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jLabel2)
+                            .addGap(96, 96, 96)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                            .addGap(62, 62, 62)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(81, 81, 81)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -168,29 +205,45 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            User user = new User();
-            user.setUsername(this.txtUserName.getText());
-            user.setPassword(this.jPasswordField1.getText().toString());
-            if (userLN.access(user)) {
-                User userAuth = userLN.getUserByCredential(this.txtUserName.getText(), this.jPasswordField1.getText().toString());
-                id = userAuth.getIdUser();
-                Main main = new Main();
-                main.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Estas credenciales no son correctas", "Error", JOptionPane.ERROR_MESSAGE);
-                this.txtUserName.setText("");
-                this.jPasswordField1.setText("");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, ""+e.getMessage());
-        }
+        login();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            login();
+        } else {
+            if (c == KeyEvent.VK_ESCAPE) {
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_formKeyTyped
+
+    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            login();
+        } else {
+            if (c == KeyEvent.VK_ESCAPE) {
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_jPasswordField1KeyTyped
+
+    private void txtUserNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyTyped
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            login();
+        } else {
+            if (c == KeyEvent.VK_ESCAPE) {
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_txtUserNameKeyTyped
 
     /**
      * @param args the command line arguments

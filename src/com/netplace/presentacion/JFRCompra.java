@@ -88,33 +88,36 @@ public class JFRCompra extends javax.swing.JInternalFrame {
     }
 
     public void search(String text) {
+        List<Entry> lEntry = new ArrayList<Entry>();
+        List<Entry> entries = entryLN.getEntries();
+        for (Entry entry : entries) {
+            if (entry.getProduct().getName().toLowerCase().contains(text.toLowerCase())
+                    || (entry.getProduct().getDescription().toLowerCase().contains(text.toLowerCase()))
+                    || (entry.getUser().getUsername().toLowerCase().contains(text.toLowerCase()))
+                    || (entry.getDateTime().equals(text))) {
+                Entry e = new Entry();
+                Product p = new Product();
+                User u = new User();
+                e.setIdEntry(entry.getIdEntry());
+                p.setName(entry.getProduct().getName());
+                p.setDescription(entry.getProduct().getDescription());
+                e.setProduct(p);
+                e.setQuantity(entry.getQuantity());
+                e.setPrice(entry.getPrice());
+                u.setUsername(entry.getUser().getUsername());
+                e.setUser(u);
+                e.setDateTime(entry.getDateTime());
+                lEntry.add(e);
+            }
+        }
+        getEntry(lEntry);
+    }
+
+    public void searchText(String text) {
         try {
             getEntry(entryLN.getEntries());
             if (!text.isEmpty()) {
-                List<Entry> lEntry = new ArrayList<Entry>();
-                List<Entry> entries = entryLN.getEntries();
-                for (Entry entry : entries) {
-
-                    if (entry.getProduct().getName().toLowerCase().contains(text.toLowerCase())
-                            || (entry.getProduct().getDescription().toLowerCase().contains(text.toLowerCase()))
-                            || (entry.getUser().getUsername().toLowerCase().contains(text.toLowerCase()))
-                            || (entry.getDateTime().equals(text))) {
-                        Entry e = new Entry();
-                        Product p = new Product();
-                        User u = new User();
-                        e.setIdEntry(entry.getIdEntry());
-                        p.setName(entry.getProduct().getName());
-                        p.setDescription(entry.getProduct().getDescription());
-                        e.setProduct(p);
-                        e.setQuantity(entry.getQuantity());
-                        e.setPrice(entry.getPrice());
-                        u.setUsername(entry.getUser().getUsername());
-                        e.setUser(u);
-                        e.setDateTime(entry.getDateTime());
-                        lEntry.add(e);
-                    }
-                }
-                getEntry(lEntry);
+                search(text);
                 ajust();
             }
             calcs();
@@ -140,6 +143,7 @@ public class JFRCompra extends javax.swing.JInternalFrame {
         column.getColumn(1).setPreferredWidth(150);
         column.getColumn(2).setPreferredWidth(200);
         column.getColumn(5).setPreferredWidth(150);
+        column.getColumn(6).setPreferredWidth(130);
     }
 
     /**
@@ -169,14 +173,17 @@ public class JFRCompra extends javax.swing.JInternalFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel1.setText("Buscar");
 
+        jTextField1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
             }
         });
 
+        jTable1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -193,27 +200,35 @@ public class JFRCompra extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Nuevo");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/agregar-compra- venta.png"))); // NOI18N
+        jButton1.setToolTipText("Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Imprimir");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/imprimir.png"))); // NOI18N
+        jButton2.setToolTipText("Imprimir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel2.setText("Total");
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel3.setText("Numero de Compras Realizadas");
 
         txtTotal.setEditable(false);
+        txtTotal.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        txtTotal.setOpaque(false);
 
         txtCountEntry.setEditable(false);
+        txtCountEntry.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        txtCountEntry.setOpaque(false);
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -235,46 +250,44 @@ public class JFRCompra extends javax.swing.JInternalFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCountEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField1)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCountEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField1)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 10, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCountEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(txtCountEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -309,8 +322,9 @@ public class JFRCompra extends javax.swing.JInternalFrame {
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            search(this.jTextField1.getText());
+            searchText(this.jTextField1.getText());
             ajust();
+            this.jDateChooser1.setCalendar(null);
         }
     }//GEN-LAST:event_jTextField1KeyPressed
 
@@ -319,7 +333,7 @@ public class JFRCompra extends javax.swing.JInternalFrame {
             if (!((JTextField) this.jDateChooser1.getDateEditor().getUiComponent()).getText().isEmpty()) {
                 Date date = this.jDateChooser1.getDate();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                search(sdf.format(date));
+                searchText(sdf.format(date));
                 ajust();
             }
         } catch (Exception e) {
