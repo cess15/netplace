@@ -5,6 +5,9 @@
  */
 package com.netplace.entidad;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 /**
  *
  * @author Cess
@@ -71,7 +74,12 @@ public class Sale {
     }
 
     public double getSubtotal() {
-        return subtotal;
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("#.00", dfs);
+        subtotal = this.quantity * this.getProduct().getSalePrice();
+        String price = df.format(subtotal);
+        return Double.parseDouble(price);
     }
 
     public void setSubtotal(double subtotal) {

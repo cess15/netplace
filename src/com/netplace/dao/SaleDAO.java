@@ -36,7 +36,7 @@ public class SaleDAO {
                 create = "El venta ha sido registrada";
             }
         } catch (Exception e) {
-            create = "Error: " + e.getMessage();
+            create = "" + e.getMessage();
         }
         this.cn.createConection().close();
         return create;

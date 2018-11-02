@@ -14,6 +14,8 @@ import static com.netplace.presentacion.Main.desktop;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.sql.Connection;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,40 +89,36 @@ public class JFRCompra extends javax.swing.JInternalFrame {
         }
     }
 
-    public void search(String text) {
-        List<Entry> lEntry = new ArrayList<Entry>();
-        List<Entry> entries = entryLN.getEntries();
-        for (Entry entry : entries) {
-            if (entry.getProduct().getName().toLowerCase().contains(text.toLowerCase())
-                    || (entry.getProduct().getDescription().toLowerCase().contains(text.toLowerCase()))
-                    || (entry.getUser().getUsername().toLowerCase().contains(text.toLowerCase()))
-                    || (entry.getDateTime().equals(text))) {
-                Entry e = new Entry();
-                Product p = new Product();
-                User u = new User();
-                e.setIdEntry(entry.getIdEntry());
-                p.setName(entry.getProduct().getName());
-                p.setDescription(entry.getProduct().getDescription());
-                e.setProduct(p);
-                e.setQuantity(entry.getQuantity());
-                e.setPrice(entry.getPrice());
-                u.setUsername(entry.getUser().getUsername());
-                e.setUser(u);
-                e.setDateTime(entry.getDateTime());
-                lEntry.add(e);
-            }
-        }
-        getEntry(lEntry);
-    }
-
     public void searchText(String text) {
         try {
             getEntry(entryLN.getEntries());
             if (!text.isEmpty()) {
-                search(text);
+                List<Entry> lEntry = new ArrayList<Entry>();
+                List<Entry> entries = entryLN.getEntries();
+                for (Entry entry : entries) {
+                    if (entry.getProduct().getName().toLowerCase().contains(text.toLowerCase())
+                            || (entry.getProduct().getDescription().toLowerCase().contains(text.toLowerCase()))
+                            || (entry.getUser().getUsername().toLowerCase().contains(text.toLowerCase()))
+                            || (entry.getDateTime().contains(text))) {
+                        Entry e = new Entry();
+                        Product p = new Product();
+                        User u = new User();
+                        e.setIdEntry(entry.getIdEntry());
+                        p.setName(entry.getProduct().getName());
+                        p.setDescription(entry.getProduct().getDescription());
+                        e.setProduct(p);
+                        e.setQuantity(entry.getQuantity());
+                        e.setPrice(entry.getPrice());
+                        u.setUsername(entry.getUser().getUsername());
+                        e.setUser(u);
+                        e.setDateTime(entry.getDateTime());
+                        lEntry.add(e);
+                    }
+                }
+                getEntry(lEntry);
                 ajust();
+                calcs();
             }
-            calcs();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en fecha: " + e.getMessage());
         }
@@ -128,11 +126,15 @@ public class JFRCompra extends javax.swing.JInternalFrame {
 
     public void calcs() {
         double total = 0.0;
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("#.00", dfs);
         for (int i = 0; i < this.jTable1.getRowCount(); i++) {
             total = total + (double) this.jTable1.getValueAt(i, 7);
 
         }
-        this.txtTotal.setText("" + total);
+        String price = df.format(total);
+        this.txtTotal.setText("" + price);
         int i = this.jTable1.getRowCount();
         this.txtCountEntry.setText("" + i);
     }
@@ -324,7 +326,7 @@ public class JFRCompra extends javax.swing.JInternalFrame {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             searchText(this.jTextField1.getText());
             ajust();
-            this.jDateChooser1.setCalendar(null);
+            this.jDateChooser1.setDate(null);
         }
     }//GEN-LAST:event_jTextField1KeyPressed
 

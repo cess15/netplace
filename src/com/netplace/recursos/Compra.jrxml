@@ -118,7 +118,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{date_time}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="565" y="0" width="40" height="19" uuid="4caec8a5-3507-4368-a71e-8f0ee9f86fb5"/>
 				<textElement markup="none">
 					<font size="14"/>
@@ -154,7 +154,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="565" y="29" width="40" height="20" uuid="6c5ce80c-063c-4bc4-971c-c0b3d928863b"/>
 				<textElement>
 					<font size="14" isBold="false"/>

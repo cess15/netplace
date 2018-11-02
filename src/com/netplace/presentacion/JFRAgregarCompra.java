@@ -15,7 +15,9 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -75,8 +77,9 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
                 DecimalFormat df = new DecimalFormat("#.00", dfs);
                 String price = df.format(Double.parseDouble(this.txtPrice.getText()));
                 entry.setPrice(Double.parseDouble(price));
-
-                entry.setDateTime(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                entry.setDateTime(sdf.format(date));
                 entryLN.createEntry(entry);
                 preview();
             } else {
@@ -282,6 +285,9 @@ public class JFRAgregarCompra extends javax.swing.JInternalFrame {
                 && !(c == KeyEvent.VK_ENTER))) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
+        }
+        if (c == KeyEvent.VK_ENTER) {
+            newEntry();
         }
     }//GEN-LAST:event_txtPriceKeyTyped
 

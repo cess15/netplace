@@ -5,6 +5,9 @@
  */
 package com.netplace.entidad;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 /**
  *
  * @author Cess
@@ -18,7 +21,6 @@ public class Entry {
     private double price;
     private String dateTime;
     private double subtotal;
-    
 
     public Entry() {
     }
@@ -81,7 +83,11 @@ public class Entry {
     }
 
     public double getSubTotal() {
-        this.subtotal=this.price*this.quantity;
-        return subtotal;
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("#.00", dfs);
+        this.subtotal = this.price * this.quantity;
+        String price = df.format(this.subtotal);
+        return Double.parseDouble(price);
     }
 }

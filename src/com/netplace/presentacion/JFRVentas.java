@@ -14,6 +14,8 @@ import static com.netplace.presentacion.Main.desktop;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.sql.Connection;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,7 +69,7 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         model.addColumn("Nombre del Producto");
         model.addColumn("Descripcion");
         model.addColumn("Cantidad");
-        model.addColumn("Precio de Producto");
+        model.addColumn("Precio de Venta");
         model.addColumn("Nombre de Usuario");
         model.addColumn("Fecha");
         model.addColumn("SubTotal");
@@ -87,42 +89,38 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         }
     }
 
-    public void search(String text) {
-        List<Sale> lSale = new ArrayList<Sale>();
-        List<Sale> sales = saleLN.getSales();
-        for (Sale sale : sales) {
-
-            if (sale.getProduct().getName().toLowerCase().contains(text.toLowerCase())
-                    || (sale.getProduct().getDescription().toLowerCase().contains(text.toLowerCase()))
-                    || (sale.getUser().getUsername().toLowerCase().contains(text.toLowerCase()))
-                    || (sale.getDateTime().equals(text))) {
-                Sale s = new Sale();
-                Product p = new Product();
-                User u = new User();
-                s.setIdSale(sale.getIdSale());
-                p.setName(sale.getProduct().getName());
-                p.setDescription(sale.getProduct().getDescription());
-                s.setQuantity(sale.getQuantity());
-                p.setSalePrice(sale.getProduct().getSalePrice());
-                s.setProduct(p);
-                u.setUsername(sale.getUser().getUsername());
-                s.setUser(u);
-                s.setDateTime(sale.getDateTime());
-                s.setSubtotal(sale.getSubtotal());
-                lSale.add(s);
-            }
-        }
-        getSale(lSale);
-        ajust();
-    }
-
     public void searchText(String text) {
         try {
             getSale(saleLN.getSales());
             if (!text.isEmpty()) {
-                search(text);
+                List<Sale> lSale = new ArrayList<Sale>();
+                List<Sale> sales = saleLN.getSales();
+                for (Sale sale : sales) {
+
+                    if (sale.getProduct().getName().toLowerCase().contains(text.toLowerCase())
+                            || (sale.getProduct().getDescription().toLowerCase().contains(text.toLowerCase()))
+                            || (sale.getUser().getUsername().toLowerCase().contains(text.toLowerCase()))
+                            || (sale.getDateTime().equals(text))) {
+                        Sale s = new Sale();
+                        Product p = new Product();
+                        User u = new User();
+                        s.setIdSale(sale.getIdSale());
+                        p.setName(sale.getProduct().getName());
+                        p.setDescription(sale.getProduct().getDescription());
+                        s.setQuantity(sale.getQuantity());
+                        p.setSalePrice(sale.getProduct().getSalePrice());
+                        s.setProduct(p);
+                        u.setUsername(sale.getUser().getUsername());
+                        s.setUser(u);
+                        s.setDateTime(sale.getDateTime());
+                        s.setSubtotal(sale.getSubtotal());
+                        lSale.add(s);
+                    }
+                }
+                getSale(lSale);
+                ajust();
+                calcs();
             }
-            calcs();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en fecha: " + e.getMessage());
         }
@@ -130,10 +128,14 @@ public class JFRVentas extends javax.swing.JInternalFrame {
 
     public void calcs() {
         double total = 0.0;
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("#.00", dfs);
         for (int i = 0; i < this.jTable1.getRowCount(); i++) {
             total = total + (double) this.jTable1.getValueAt(i, 7);
         }
-        this.txtTot.setText("" + total);
+        String price = df.format(total);
+        this.txtTot.setText("" + price);
         int i = this.jTable1.getRowCount();
         this.txtCount.setText("" + i);
     }
@@ -143,6 +145,7 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         column.getColumn(0).setPreferredWidth(10);
         column.getColumn(1).setPreferredWidth(150);
         column.getColumn(2).setPreferredWidth(200);
+        column.getColumn(4).setPreferredWidth(150);
         column.getColumn(5).setPreferredWidth(150);
         column.getColumn(6).setPreferredWidth(130);
     }
@@ -324,7 +327,7 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             searchText(this.txtBuscar.getText());
             ajust();
-            this.jDateChooser1.setCalendar(null);
+            this.jDateChooser1.setDate(null);
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 

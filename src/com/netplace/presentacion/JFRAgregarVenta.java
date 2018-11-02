@@ -15,8 +15,10 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -65,11 +67,17 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
 
                 product.setSalePrice(Double.parseDouble(this.txtPrice.getText()));
                 sale.setProduct(product);
-                sale.setDateTime(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR)));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                sale.setDateTime(sdf.format(date));
 
                 double subtotal = 0.0;
+                DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+                dfs.setDecimalSeparator('.');
+                DecimalFormat df = new DecimalFormat("#.00", dfs);
                 subtotal = Double.parseDouble(this.txtPrice.getText()) * Integer.parseInt(this.txtCant.getText());
-                sale.setSubtotal(subtotal);
+                String price = df.format(subtotal);
+                sale.setSubtotal(Double.parseDouble(price));
                 saleLN.createEntry(sale);
                 preview();
             } else {
