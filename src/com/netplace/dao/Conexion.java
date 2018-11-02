@@ -14,14 +14,16 @@ import javax.swing.JOptionPane;
  * @author Cess
  */
 public class Conexion {
-    public Connection createConection(){
-        Connection cn=null;
+
+    public Connection createConection() {
+        Connection cn = null;
         try {
-           cn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Cyber", "postgres", "sistemas");
+            Class.forName("org.postgresql.Driver");
+            cn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Cyber", "postgres", "sistemas");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en Conexion","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en Conexion", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return cn;
     }
-    
+
 }
