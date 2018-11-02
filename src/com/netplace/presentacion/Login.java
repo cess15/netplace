@@ -5,6 +5,7 @@
  */
 package com.netplace.presentacion;
 
+import com.netplace.dao.Conexion;
 import com.netplace.entidad.User;
 import com.netplace.negocio.UserLN;
 import java.awt.event.KeyEvent;
@@ -25,7 +26,6 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         userLN = new UserLN();
-
     }
 
     public void login() {

@@ -33,10 +33,10 @@ public class SaleDAO {
             ps.setString(4, sale.getDateTime());
             ps.setDouble(5, sale.getSubtotal());
             if (ps.executeUpdate() > 0) {
-                create = "El venta ha sido registrada";
+                create = "La venta ha sido registrada";
             }
         } catch (Exception e) {
-            create = "" + e.getMessage();
+            create = "Error: " + e.getMessage();
         }
         this.cn.createConection().close();
         return create;

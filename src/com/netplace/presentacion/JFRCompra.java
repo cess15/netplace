@@ -326,6 +326,7 @@ public class JFRCompra extends javax.swing.JInternalFrame {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             searchText(this.jTextField1.getText());
             ajust();
+            calcs();
             this.jDateChooser1.setDate(null);
         }
     }//GEN-LAST:event_jTextField1KeyPressed
@@ -337,6 +338,7 @@ public class JFRCompra extends javax.swing.JInternalFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 searchText(sdf.format(date));
                 ajust();
+                calcs();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());

@@ -12,7 +12,7 @@
 	<field name="date_time" class="java.lang.String"/>
 	<field name="subtotal" class="java.lang.Double"/>
 	<variable name="subtotal_1" class="java.lang.Double" resetType="Page" calculation="Sum">
-		<variableExpression><![CDATA[$F{subtotal}]]></variableExpression>
+		<variableExpression><![CDATA[$F{quantity}*$F{sale_price}]]></variableExpression>
 	</variable>
 	<background>
 		<band/>
@@ -109,12 +109,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{date_time}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" pattern="###0.00">
 				<reportElement x="515" y="0" width="40" height="20" uuid="b0ba98b3-4d7d-4f5a-a8d7-67dec2a87470"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quantity}*$F{sale_price}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="264" y="0" width="111" height="20" uuid="ce5e18b9-fbfb-4941-afc1-cf3eca3388be"/>
@@ -164,8 +164,8 @@
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="515" y="45" width="40" height="20" uuid="af090e3e-7502-4e89-96ff-3954969604f9"/>
+			<textField pattern="###0.00">
+				<reportElement x="515" y="45" width="40" height="20" uuid="f5dfe7c2-1960-4685-915b-202db5ffc02c"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>

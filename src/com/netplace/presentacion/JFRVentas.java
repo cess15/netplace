@@ -327,6 +327,7 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             searchText(this.txtBuscar.getText());
             ajust();
+            calcs();
             this.jDateChooser1.setDate(null);
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
@@ -338,6 +339,7 @@ public class JFRVentas extends javax.swing.JInternalFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 searchText(sdf.format(date));
                 ajust();
+                calcs();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());

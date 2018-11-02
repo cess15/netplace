@@ -36,7 +36,7 @@ public class UserDAO {
                 }
             }
         } catch (Exception e) {
-            create = "Usuario ya existe con las mismas credenciales";
+            create = "Error: "+e.getMessage();
         }
         this.cn.createConection().close();
         return create;
@@ -56,7 +56,7 @@ public class UserDAO {
                 }
             }
         } catch (Exception e) {
-            create = "Usuario ya existe con las mismas credenciales";
+            create = "Error: "+e.getMessage();
         }
         this.cn.createConection().close();
         return create;

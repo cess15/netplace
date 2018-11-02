@@ -19,7 +19,7 @@ public class Conexion {
         Connection cn = null;
         try {
             Class.forName("org.postgresql.Driver");
-            cn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Cyber", "postgres", "sistemas");
+            cn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cyber", "postgres", "sistemas");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en Conexion", "Error", JOptionPane.ERROR_MESSAGE);
         }

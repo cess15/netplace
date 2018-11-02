@@ -33,7 +33,7 @@ public class EntryDAO {
             ps.setDouble(4, entry.getPrice());
             ps.setString(5, entry.getDateTime());
             if (ps.executeUpdate() > 0) {
-                create = "El compra ha sido registrada";
+                create = "La compra ha sido registrada";
             }
         } catch (Exception e) {
             create = "Error: " + e.getMessage();
