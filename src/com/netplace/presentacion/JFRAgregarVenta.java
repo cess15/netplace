@@ -16,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -78,7 +77,7 @@ public class JFRAgregarVenta extends javax.swing.JInternalFrame {
                 subtotal = Double.parseDouble(this.txtPrice.getText()) * Integer.parseInt(this.txtCant.getText());
                 String price = df.format(subtotal);
                 sale.setSubtotal(Double.parseDouble(price));
-                saleLN.createEntry(sale);
+                saleLN.createSale(sale);
                 preview();
             } else {
                 JOptionPane.showMessageDialog(null, "Campos obligatorios (*)");

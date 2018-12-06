@@ -50,6 +50,30 @@ public class EntryLN {
         }
         return lEntry;
     }
+    public List<Entry> getEntries(int month,int year) {
+        List<Entry> lEntry = new ArrayList<Entry>();
+        try {
+            ResultSet rs = entryDAO.getEntries(month,year);
+            while (rs.next()) {
+                Entry entry = new Entry();
+                entry.setIdEntry(rs.getInt("id_entries"));
+                Product product = new Product();
+                product.setName(rs.getString("product"));
+                product.setDescription(rs.getString("description"));
+                entry.setProduct(product);
+                entry.setQuantity(rs.getInt("quantity"));
+                entry.setPrice(rs.getDouble("price"));
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                entry.setUser(user);
+                entry.setDateTime(rs.getString("date_time"));
+                lEntry.add(entry);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+        return lEntry;
+    }
 
     public void createEntry(Entry entry) {
         String response = "";

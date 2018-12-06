@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[select p.name as product,e.quantity,e.price,e.date_time from entries e join products p on p.id_product=e.id_product join users u on e.id_user=u.id_user order by date_time desc;]]>
 	</queryString>
 	<field name="product" class="java.lang.String"/>

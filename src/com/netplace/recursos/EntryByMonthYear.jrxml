@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="645" pageHeight="842" columnWidth="605" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="88e70a46-8061-46ff-92f7-2ff97ec4f695">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select e.id_entries,p.name as product,p.description,e.quantity,e.price,u.username,e.date_time from entries e 
+join products p on p.id_product=e.id_product 
+join users u on e.id_user=u.id_user where cast(extract(month from to_date(date_time,'DD/MM/YYYY')) as int)=$P{mes}
+and cast(extract(year from to_date(date_time,'DD/MM/YYYY')) as int)=$P{anio} order by date_time desc;]]>
+	</queryString>
+	<field name="product" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="date_time" class="java.lang.String"/>
+	<variable name="subtotal" class="java.lang.String" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantity}*$F{price}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="646" height="92" backcolor="#006699" uuid="6fef7fde-99b7-4d88-aab2-9847c8a980ce"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="a4d65ab1-bdce-4b1f-a37a-1396b7af329b"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NETPLACE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="268ebe6a-5a96-449e-950c-7d98954ff57c"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[REPORTE DE COMPRAS]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="625" height="1" forecolor="#666666" uuid="0d216509-6fa5-4b5b-bcc7-10ad2609ebbb"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0a737bbe-570c-4dec-99eb-f16d69b73eaa"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="138" y="0" width="113" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="a5abda23-f1de-4802-84c3-c698588684e5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="251" y="0" width="138" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="4fc908e3-03c0-4cbb-a369-1beca09d9ec2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="389" y="0" width="141" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ab0618db-896e-40f0-9326-560756787c9c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="530" y="2" width="75" height="19" forecolor="#006699" backcolor="#E6E6E6" uuid="b08b95ad-8f40-4411-a852-58de7b0e2d04"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="605" height="1" uuid="81a380c5-63ba-4fda-95cd-7b456b3e232b"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="185" height="20" uuid="e45bba7d-315e-495f-8190-155c62cc1879"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="185" y="0" width="113" height="20" uuid="c178e5be-3c0e-4f2a-97bd-69cd35734835"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="298" y="0" width="138" height="20" uuid="551a3f38-af19-4ead-ad13-82664564367b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="436" y="0" width="129" height="20" uuid="0457689e-2655-46bf-90d8-3be3d5e2ca3d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_time}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="565" y="1" width="40" height="19" uuid="6994a0e1-7573-4b18-81d4-c83d752f7579"/>
+				<textElement markup="none">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}*($F{price})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="41">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="27" width="565" height="13" backcolor="#E6E6E6" uuid="1c05fe33-e45e-4552-b12f-a2f9bdac20aa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="565" y="27" width="40" height="13" backcolor="#E6E6E6" uuid="b35ced12-9ddf-4b73-8262-73cc5e779dd5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="27" width="100" height="13" uuid="2174eea8-56be-4b31-9560-9b2bb34084af"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="7" width="172" height="20" uuid="dd500636-c327-4995-9499-e353e939f6af"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[COMPRAS REALIZADAS: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="185" y="7" width="100" height="20" uuid="70d6dfdb-1004-409e-90c7-0078cde40355"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="436" y="7" width="100" height="20" uuid="2a960100-24b3-4b02-b642-c6a57bf57d53"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[TOTAL: ]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="565" y="7" width="40" height="20" uuid="57af6562-0f05-4c2f-83f3-61ea86faf94c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
