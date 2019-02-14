@@ -35,7 +35,7 @@ public class ProductDAO {
                 create = "El producto " + product.getName() + " ha sido registrado";
             }
         } catch (Exception e) {
-            create = "Error"+e.getMessage();
+            create = "Error" + e.getMessage();
         }
         this.cn.createConection().close();
         return create;
@@ -53,11 +53,10 @@ public class ProductDAO {
                 create = "El producto " + product.getName() + " ha sido actualizado";
             }
         } catch (Exception e) {
-            create = "Error"+e.getMessage();
+            create = "Error" + e.getMessage();
         }
 
-        this.cn.createConection()
-                .close();
+        this.cn.createConection().close();
         return create;
     }
 

@@ -16,13 +16,13 @@ import javax.swing.JOptionPane;
  * @author Cess
  */
 public class EntryDAO {
-    
+
     private Conexion cn;
-    
+
     public EntryDAO() {
         cn = new Conexion();
     }
-    
+
     public String createEntry(Entry entry) throws SQLException {
         String create = "No se ha podido registrar la compra";
         try {
@@ -41,28 +41,11 @@ public class EntryDAO {
         this.cn.createConection().close();
         return create;
     }
-    
+
     public ResultSet getEntries() throws SQLException {
         ResultSet rs = null;
         try {
             PreparedStatement ps = this.cn.createConection().prepareStatement("select e.id_entries,p.name as product,p.description,e.quantity,e.price,u.username,e.date_time from entries e join products p on p.id_product=e.id_product join users u on e.id_user=u.id_user order by date_time desc;");
-            rs = ps.executeQuery();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-        this.cn.createConection().close();
-        return rs;
-    }
-    
-    public ResultSet getEntries(int month, int year) throws SQLException {
-        ResultSet rs = null;
-        try {
-            PreparedStatement ps = this.cn.createConection().prepareStatement("select e.id_entries,p.name as product,p.description,e.quantity,e.price,u.username,e.date_time from entries e \n"
-                    + "join products p on p.id_product=e.id_product \n"
-                    + "join users u on e.id_user=u.id_user where cast(extract(month from to_date(date_time,'DD/MM/YYYY')) as int)=?\n"
-                    + "and cast(extract(year from to_date(date_time,'DD/MM/YYYY')) as int)=? order by date_time desc;");
-            ps.setInt(1, month);
-            ps.setInt(2, year);
             rs = ps.executeQuery();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());

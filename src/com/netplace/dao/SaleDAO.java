@@ -53,21 +53,4 @@ public class SaleDAO {
         this.cn.createConection().close();
         return rs;
     }
-
-    public ResultSet getSales(int month, int year) throws SQLException {
-        ResultSet rs = null;
-        try {
-            PreparedStatement ps = this.cn.createConection().prepareStatement("select s.id_sales,p.name as product,p.description,s.quantity,p.sale_price,u.username,s.date_time,s.subtotal from sales s \n"
-                    + "join products p on p.id_product=s.id_product \n"
-                    + "join users u on s.id_user=u.id_user where cast(extract(month from to_date(date_time,'DD/MM/YYYY')) as int)=?\n"
-                    + "and cast(extract(year from to_date(date_time,'DD/MM/YYYY')) as int)=? order by date_time desc;");
-            ps.setInt(1, month);
-            ps.setInt(2, year);
-            rs = ps.executeQuery();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-        this.cn.createConection().close();
-        return rs;
-    }
 }

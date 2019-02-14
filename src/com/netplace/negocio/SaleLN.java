@@ -52,32 +52,6 @@ public class SaleLN {
         return lSale;
     }
 
-    public List<Sale> getSales(int month, int year) {
-        List<Sale> lSale = new ArrayList<Sale>();
-        try {
-            ResultSet rs = saleDAO.getSales(month, year);
-            while (rs.next()) {
-                Sale sale = new Sale();
-                sale.setIdSale(rs.getInt("id_sales"));
-                Product product = new Product();
-                product.setName(rs.getString("product"));
-                product.setDescription(rs.getString("description"));
-                sale.setQuantity(rs.getInt("quantity"));
-                product.setSalePrice(rs.getDouble("sale_price"));
-                sale.setProduct(product);
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                sale.setUser(user);
-                sale.setDateTime(rs.getString("date_time"));
-                sale.setSubtotal(rs.getDouble("subtotal"));
-                lSale.add(sale);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-        return lSale;
-    }
-
     public void createSale(Sale sale) {
         String response = "";
         try {

@@ -53,15 +53,6 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         this.jTable1.setDefaultRenderer(Object.class, new ColorTableEntry());
         calcs();
         ajust();
-        chargeComb();
-    }
-
-    public void chargeComb() {
-        this.jComboBox1.addItem("-Seleccione-");
-        String meses[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-        for (int i = 0; i < meses.length; i++) {
-            this.jComboBox1.addItem(meses[i]);
-        }
     }
 
     public void getSale(List<Sale> lSale) {
@@ -180,8 +171,6 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         txtCount = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtTot = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
 
         setClosable(true);
         setIconifiable(true);
@@ -209,6 +198,8 @@ public class JFRVentas extends javax.swing.JInternalFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/agregar-compra- venta.png"))); // NOI18N
         jButton1.setToolTipText("Nuevo");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -217,6 +208,8 @@ public class JFRVentas extends javax.swing.JInternalFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/netplace/recursos/imprimir.png"))); // NOI18N
         jButton2.setToolTipText("Imprimir");
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton2.setContentAreaFilled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -243,12 +236,6 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         txtTot.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         txtTot.setOpaque(false);
 
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
-            }
-        });
-
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -259,8 +246,6 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(txtCount, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txtTot, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jComboBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jYearChooser1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -268,46 +253,40 @@ public class JFRVentas extends javax.swing.JInternalFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCount, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtTot, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTot, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jYearChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton2)
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -324,8 +303,8 @@ public class JFRVentas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDesktopPane1)
-                .addContainerGap())
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +333,6 @@ public class JFRVentas extends javax.swing.JInternalFrame {
             ajust();
             calcs();
             this.jDateChooser1.setDate(null);
-            this.jComboBox1.setSelectedItem("-Seleccione-");
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
@@ -366,7 +344,6 @@ public class JFRVentas extends javax.swing.JInternalFrame {
                 searchText(sdf.format(date));
                 ajust();
                 calcs();
-                this.jComboBox1.setSelectedItem("-Seleccione-");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
@@ -374,25 +351,7 @@ public class JFRVentas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jDateChooser1PropertyChange
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (this.txtBuscar.getText().isEmpty() && (this.jYearChooser1.getYear() != 0)
-                && (this.jComboBox1.getSelectedIndex() != 0)) {
-            try {
-                Connection cn = new Conexion().createConection();
-                Map p = new HashMap();
-                JasperReport report;
-                JasperPrint print;
-                p.put("mes", this.jComboBox1.getSelectedIndex());
-                p.put("anio", this.jYearChooser1.getYear());
-                report = JasperCompileManager.compileReport(new File("").getAbsolutePath() + "/src/com/netplace/recursos/SaleByMonthYear.jrxml");
-                print = JasperFillManager.fillReport(report, p, cn);
-                JasperViewer view = new JasperViewer(print, false);
-                view.setTitle("VENTAS");
-                view.setVisible(true);
-                cn.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            }
-        } else if (!((JTextField) this.jDateChooser1.getDateEditor().getUiComponent()).getText().isEmpty()) {
+        if (!((JTextField) this.jDateChooser1.getDateEditor().getUiComponent()).getText().isEmpty()) {
             Date date = this.jDateChooser1.getDate();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -428,95 +387,10 @@ public class JFRVentas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        try {
-            int mes = this.jComboBox1.getSelectedIndex();
-            switch (mes) {
-                case 1:
-                    getSale(saleLN.getSales(1, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 2:
-                    getSale(saleLN.getSales(2, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 3:
-                    getSale(saleLN.getSales(3, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 4:
-                    getSale(saleLN.getSales(4, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 5:
-                    getSale(saleLN.getSales(5, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 6:
-                    getSale(saleLN.getSales(6, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 7:
-                    getSale(saleLN.getSales(7, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 8:
-                    getSale(saleLN.getSales(8, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 9:
-                    getSale(saleLN.getSales(9, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 10:
-                    getSale(saleLN.getSales(10, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 11:
-                    getSale(saleLN.getSales(11, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                case 12:
-                    getSale(saleLN.getSales(12, this.jYearChooser1.getYear()));
-                    ajust();
-                    calcs();
-                    this.jDateChooser1.setDate(null);
-                    break;
-                default:
-                    break;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    public javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
@@ -524,7 +398,6 @@ public class JFRVentas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCount;
     private javax.swing.JTextField txtTot;
